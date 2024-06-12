@@ -1,12 +1,12 @@
 import IFilme from "../interfaces/IFilme";
 import star from "/star.svg";
-import coracaoVazio from "/coracaoVazio.svg"
+import icone from "/coracaoVazio.svg";
 
 export default function CardFilme({
   poster_path,
   original_title,
   overview,
-  popularity
+  popularity,
 }: IFilme) {
   return (
     <div className="bg-slate-600 flex rounded-md justify-between  p-5">
@@ -22,12 +22,12 @@ export default function CardFilme({
         <p className="text-white">{original_title}</p>
         <div className="text-white flex w-[100%] justify-around">
           <div className="flex flex-col items-center">
-            <img src={star} alt="" className="w-8"/>
+            <img src={star} alt="" className="w-8" />
             {popularity}
           </div>
 
           <div className="flex flex-col items-center ">
-            <img src={coracaoVazio} className="w-8 cursor-pointer"/>
+            <img src={icone} className="w-8 cursor-pointer" />
             <p>Favoritar</p>
           </div>
         </div>

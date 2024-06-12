@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CardFilme from "./CardFilme";
-import IFilme from "../interfaces/IFilme";
 import { Button } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { descobrirFilmes } from "../atoms/states";
 
 export default function SectionFilmes() {
   const optionsAPI = {
@@ -14,15 +15,15 @@ export default function SectionFilmes() {
     },
   };
 
-  const enderecoApi =
-    "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
-  const [listaFilmes, setListaFilmes] = useState<IFilme[]>([]);
-  const [proximaPagina, setProximaPagina] = useState("");
+  const enderecoApi = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en&page=1&sort_by=popularity.desc";
+  const [listaFilmes, setListaFilmes] = useRecoilState(descobrirFilmes)
+  const [proximaPagina, setProximaPagina] = useState(2);
+
+
 
 
   useEffect(() => {
     axios.get(enderecoApi, optionsAPI).then((resposta) => {
-      setProximaPagina(resposta.data.page + 1);
       setListaFilmes(resposta.data.results);
     });
   }, []);
@@ -33,8 +34,8 @@ export default function SectionFilmes() {
         `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${proximaPagina}&sort_by=popularity.desc`
       )
       .then((resposta) => {
-        setProximaPagina(resposta.data.page + 1);
         setListaFilmes([...listaFilmes, ...resposta.data.results])
+        setProximaPagina(proximaPagina + 1)
       });
   };
 

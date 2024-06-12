@@ -1,5 +1,5 @@
 export default interface IFilme {
-  poster_path: any;
+  poster_path: string;
   original_title: string;
   id: number;
   popularity: number;
