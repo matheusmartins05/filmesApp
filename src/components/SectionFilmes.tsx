@@ -1,9 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CardFilme from "./CardFilme";
 import { Button } from "@mui/material";
 import { useRecoilState } from "recoil";
-import { descobrirFilmes } from "../atoms/states";
+import {
+  checkBoxFavoritos,
+  descobrirFilmes,
+  favoritados,
+} from "../atoms/states";
 
 export default function SectionFilmes() {
   const optionsAPI = {
@@ -15,12 +19,11 @@ export default function SectionFilmes() {
     },
   };
 
-  const enderecoApi = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en&page=1&sort_by=popularity.desc";
-  const [listaFilmes, setListaFilmes] = useRecoilState(descobrirFilmes)
-  const [proximaPagina, setProximaPagina] = useState(2);
-
-
-
+  const enderecoApi =
+    "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=pt-br&page=1&sort_by=popularity.desc";
+  const [listaFilmes, setListaFilmes] = useRecoilState(descobrirFilmes);
+  const [favoritos] = useRecoilState(favoritados);
+  const [isChecked] = useRecoilState(checkBoxFavoritos);
 
   useEffect(() => {
     axios.get(enderecoApi, optionsAPI).then((resposta) => {
@@ -28,37 +31,37 @@ export default function SectionFilmes() {
     });
   }, []);
 
-  const verMaisFilmes = () => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${proximaPagina}&sort_by=popularity.desc`
-      )
-      .then((resposta) => {
-        setListaFilmes([...listaFilmes, ...resposta.data.results])
-        setProximaPagina(proximaPagina + 1)
-      });
-  };
-
-
   return (
     <section className="w-[80%] mx-auto flex flex-col gap-5 my-10">
-      {listaFilmes?.map((filme) => (
-        <CardFilme
-          key={filme.id}
-          id={filme.id}
-          original_title={filme.original_title}
-          poster_path={filme.poster_path}
-          overview={filme.overview}
-          popularity={filme.popularity}
-        />
-      ))}
+      {isChecked
+        ? favoritos.map((filme) => (
+            <CardFilme
+              key={filme.id}
+              id={filme.id}
+              original_title={filme.original_title}
+              poster_path={filme.poster_path}
+              overview={filme.overview}
+              popularity={filme.popularity}
+            />
+          ))
+        : listaFilmes?.map((filme) => (
+            <CardFilme
+              key={filme.id}
+              id={filme.id}
+              original_title={filme.original_title}
+              poster_path={filme.poster_path}
+              overview={filme.overview}
+              popularity={filme.popularity}
+            />
+          ))}
 
-
-      <div className="mx-auto">
-          <Button onClick={verMaisFilmes} variant="outlined">
-            Carregar mais
-          </Button>
-      </div>
+      {isChecked ? (
+        ""
+      ) : (
+        <div className="mx-auto">
+          <Button variant="outlined">Carregar mais</Button>
+        </div>
+      )}
     </section>
   );
 }

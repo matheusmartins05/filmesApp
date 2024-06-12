@@ -3,10 +3,12 @@ import Titulo from "../components/Titulo";
 import SectionFilmes from "../components/SectionFilmes";
 import InputText from "../components/InputText";
 import { RecoilRoot } from "recoil";
+import ExibeFavoritos from "../components/ExibeFavoritos";
 
 export default function Home() {
 
 
+  
 
 
   return (
@@ -22,6 +24,8 @@ export default function Home() {
         
         <InputText />
         </div>
+
+        <ExibeFavoritos/>
       </header>
 
       <SectionFilmes />

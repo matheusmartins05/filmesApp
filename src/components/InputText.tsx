@@ -12,7 +12,7 @@ export default function InputText() {
     },
   };
   const [filmeDigitado, setFilmeDigitado] = useRecoilState(filmePesquisado);
-  const [listaFilmes, setListaFilmes] = useRecoilState(descobrirFilmes);
+  const [, setListaFilmes] = useRecoilState(descobrirFilmes);
 
   const aoPesquisarFilme = () => {
     axios
