@@ -1,8 +1,14 @@
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { descobrirFilmes, filmePesquisado } from "../atoms/states";
+import Notiflix, { Notify } from "notiflix";
 
 export default function InputText() {
+  Notiflix.Notify.init({
+    position: 'right-top'
+  })
+
+
   const options = {
     method: "GET",
     headers: {
@@ -15,7 +21,10 @@ export default function InputText() {
   const [, setListaFilmes] = useRecoilState(descobrirFilmes);
 
   const aoPesquisarFilme = () => {
-    axios
+    if(filmeDigitado === ''){
+      Notify.failure('Por favor digite o nome de um filme');
+    }else{
+      axios
       .get(
         `https://api.themoviedb.org/3/search/movie?query=${filmeDigitado}&include_adult=false&language=pt-br&page=1`,
         options
@@ -23,6 +32,8 @@ export default function InputText() {
       .then((respostas) => {
         setListaFilmes(respostas.data.results);
       });
+    }
+   
   };
 
   return (
@@ -32,7 +43,7 @@ export default function InputText() {
         onChange={(evento) => setFilmeDigitado(evento.target.value)}
         type="text"
         placeholder="Pesquisar filme..."
-        className="w-[100%] h-[100%] bg-transparent outline-none indent-10"
+        className='w-[100%] h-[100%] bg-transparent outline-none indent-10'
       />
       <button type="submit" onClick={aoPesquisarFilme} className="w-[10%]">
         <img src="./search-icon.svg" alt="" />
