@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { descobrirFilmes, filmePesquisado } from "../atoms/states";
+import { buttonCarregaMaisFilmes, descobrirFilmes, filmePesquisado, listaFilmeEhPesquisado } from "../atoms/states";
 import Notiflix, { Notify } from "notiflix";
 
 export default function InputText() {
@@ -19,6 +19,9 @@ export default function InputText() {
   };
   const [filmeDigitado, setFilmeDigitado] = useRecoilState(filmePesquisado);
   const [, setListaFilmes] = useRecoilState(descobrirFilmes);
+  const [, setCarregaMaisFilmes] = useRecoilState(buttonCarregaMaisFilmes);
+  const [filmeFoiPesquisado, setFilmeFoiPesquisado] = useRecoilState(listaFilmeEhPesquisado)
+
 
   const aoPesquisarFilme = () => {
     if(filmeDigitado === ''){
@@ -29,8 +32,11 @@ export default function InputText() {
         `https://api.themoviedb.org/3/search/movie?query=${filmeDigitado}&include_adult=false&language=pt-br&page=1`,
         options
       )
-      .then((respostas) => {
-        setListaFilmes(respostas.data.results);
+      .then((resposta) => {
+        setListaFilmes(resposta.data.results);
+        setCarregaMaisFilmes(resposta.data.page + 1)
+        setFilmeFoiPesquisado(true)
+        console.log(filmeFoiPesquisado)
       });
     }
    

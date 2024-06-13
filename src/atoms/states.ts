@@ -23,3 +23,13 @@ export const checkBoxFavoritos = atom({
     key:"checkBoxFavoritos",
     default: false
 })
+
+export const buttonCarregaMaisFilmes = atom({
+    key: "buttonCarregaMaisFilmes",
+    default: ''
+})
+
+export const listaFilmeEhPesquisado = atom({
+    key: "listaFilmeEhPesquisado",
+    default: false
+})
