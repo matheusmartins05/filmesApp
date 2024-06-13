@@ -31,37 +31,25 @@ export default function SectionFilmes() {
     });
   }, []);
 
+  function sectionFavoritos() {
+    if (favoritos.length == 0) {
+      return <p className="text-center text-white text-xl w-[50%] mx-auto">Você não favoritou nenhum filme, use a barra de pesquisa para buscar por filmes que deseja favoritar...</p>
+    }if(favoritos.length !== 0) {
+      return favoritos.map((filme) => <CardFilme {...filme}/>)
+    }
+  }
+
   return (
     <section className="w-[80%] mx-auto flex flex-col gap-5 my-10">
-      {isChecked
-        ? favoritos.map((filme) => (
-            <CardFilme
-              key={filme.id}
-              id={filme.id}
-              original_title={filme.original_title}
-              poster_path={filme.poster_path}
-              overview={filme.overview}
-              popularity={filme.popularity}
-            />
-          ))
-        : listaFilmes?.map((filme) => (
-            <CardFilme
-              key={filme.id}
-              id={filme.id}
-              original_title={filme.original_title}
-              poster_path={filme.poster_path}
-              overview={filme.overview}
-              popularity={filme.popularity}
-            />
-          ))}
-
+      
       {isChecked ? (
-        ""
-      ) : (
-        <div className="mx-auto">
-          <Button variant="outlined">Carregar mais</Button>
-        </div>
-      )}
+        sectionFavoritos()
+      ) : 
+        (
+          listaFilmes.map((filme) => <CardFilme {...filme}/>)
+        )}
+      
+     
     </section>
   );
 }
