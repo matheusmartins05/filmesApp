@@ -28,8 +28,8 @@ export default function CardFilme({id,  poster_path,  original_title, overview, 
   }
 
   return (
-    <div className="bg-slate-600 flex rounded-md justify-between  p-5">
-      <figure className="w-[15%]">
+    <div className="bg-slate-600 flex flex-col md:flex-row items-center rounded-md justify-between w-[100%] max-w-96 md:max-w-none mx-auto p-5">
+      <figure className="md:w-[15%] w-44 mx-auto  min-w-32">
         <img
           src={`https://image.tmdb.org/t/p/w200/${poster_path}`}
           alt=""
@@ -37,7 +37,7 @@ export default function CardFilme({id,  poster_path,  original_title, overview, 
         />
       </figure>
 
-      <div className="flex flex-col gap-4 justify-center w-[20%] text-center">
+      <div className="flex flex-col gap-4 justify-center my-4 md:my-0 mx-auto md:w-40 w-[50%] text-center">
         <p className="text-white">{original_title}</p>
         <div className="text-white flex w-[100%] justify-around">
           <div className="flex flex-col items-center">
@@ -64,7 +64,7 @@ export default function CardFilme({id,  poster_path,  original_title, overview, 
         </div>
       </div>
 
-      <div className="w-[55%] px-8 leading-8">
+      <div className="md:w-[55%] mx-auto w-[100%] md:max-w-none max-w-96 md:px-8 leading-8">
         <p className="text-white">{overview}</p>
       </div>
     </div>

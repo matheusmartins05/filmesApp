@@ -20,7 +20,7 @@ export default function Home() {
             Filmes Populares
           </h1>
         </Titulo>
-        <div className="flex justify-center w-[40%] h-12 mx-auto bg-[#454558] text-white">
+        <div className="flex justify-center md:w-[40%] w-[80%] md:max-w-none max-w-80 h-12 mx-auto bg-[#454558] text-white rounded-md">
         
         <InputText />
         </div>

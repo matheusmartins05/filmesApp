@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CardFilme from "./CardFilme";
 import { Button } from "@mui/material";
 import { useRecoilState } from "recoil";
@@ -30,10 +30,10 @@ export default function SectionFilmes() {
   );
   const [favoritos] = useRecoilState(favoritados);
   const [isChecked] = useRecoilState(checkBoxFavoritos);
-  const [filmeFoiPesquisado, setFilmeFoiPesquisado] = useRecoilState(
+  const [filmeFoiPesquisado] = useRecoilState(
     listaFilmeEhPesquisado
   );
-  const [filmeDigitado, setFilmeDigitado] = useRecoilState(filmePesquisado);
+  const [filmeDigitado] = useRecoilState(filmePesquisado);
 
   useEffect(() => {
     axios.get(enderecoApi, optionsAPI).then((resposta) => {
@@ -81,7 +81,7 @@ export default function SectionFilmes() {
   }
 
   return (
-    <section className="w-[80%] mx-auto flex flex-col gap-5 my-10">
+    <section className="md:w-[80%] w-[90%] mx-auto flex flex-col gap-5 my-10">
       {isChecked ? (
         sectionFavoritos()
       ) : (

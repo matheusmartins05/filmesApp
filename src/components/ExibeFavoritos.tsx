@@ -9,7 +9,7 @@ export default function ExibeFavoritos() {
   };
 
   return (
-    <div className="flex gap-2 justify-center my-5">
+    <div className="w-[90%] mx-auto flex gap-2 justify-center my-5">
       <input
         className="w-5"
         type="checkbox"
